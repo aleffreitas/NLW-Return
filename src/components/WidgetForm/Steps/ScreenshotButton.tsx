@@ -5,7 +5,7 @@ import { Loading } from "../../Loading";
 
 interface ScreenshotButtonProps {
   screenshot: string | null;
-  onScreenshotTook: (screenshot: string) => void;
+  onScreenshotTook: (screenshot: string | null) => void;
 }
 
 export function ScreenshotButton({ onScreenshotTook, screenshot }: ScreenshotButtonProps) {
@@ -27,7 +27,12 @@ export function ScreenshotButton({ onScreenshotTook, screenshot }: ScreenshotBut
       <button
         type="button"
         className="p-1 w-10 h-10 border-transparent flex justify-end items-end text-zinc-400 hover:text-zinc-100 transition-colors"
-        style={{ backgroundImage: `url(${screenshot})` }}
+        style={{
+          backgroundImage: `url(${screenshot})`,
+          backgroundPosition: 'right bottom',
+          backgroundSize: 180,
+        }}
+        onClick={() => onScreenshotTook(null)}
       >
         <Trash weight="fill"/>
       </button>
@@ -37,7 +42,7 @@ export function ScreenshotButton({ onScreenshotTook, screenshot }: ScreenshotBut
   return (
     <button
       type="button"
-      className="p2 bg-zinc-800 rounded-md border-transparent hover:bg-zinc-700 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-500 focus:ring-offset-2 focus:ring-offset-zinc-900 focus-ring-brand-500"
+      className="p-2 bg-zinc-800 rounded-md border-transparent hover:bg-zinc-700 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-500 focus:ring-offset-2 focus:ring-offset-zinc-900 focus-ring-brand-500"
       onClick={handleTakeScreenshot}
     >
       {isTakingScreenshot ? <Loading /> : <Camera className="w-6 h-6" />}
